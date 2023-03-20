@@ -1,11 +1,12 @@
-import React from 'react';
-import * as ReactDOM from 'react-dom';
-import { Default as Thing } from '../stories/Thing.stories';
+import React from "react";
+import ReactDOMClient from "react-dom/client";
+import { AutonumericField } from "../src";
 
-describe('Thing', () => {
-  it('renders without crashing', () => {
-    const div = document.createElement('div');
-    ReactDOM.render(<Thing />, div);
-    ReactDOM.unmountComponentAtNode(div);
+describe("AutonumericField", () => {
+  it("renders without crashing", () => {
+    const div = document.createElement("div");
+    const root = ReactDOMClient.createRoot(div);
+    root.render(<AutonumericField value={0} setValue={() => null} />);
+    root.unmount();
   });
 });

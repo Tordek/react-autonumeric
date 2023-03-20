@@ -14,8 +14,7 @@
     "analyze": "size-limit --why",
     "build": "dts build",
     "build-storybook": "build-storybook",
-    "lint": "dts lint",
-    "prepare": "dts build",
+    "lint": "dts lint src test example",
     "size": "size-limit",
     "start": "dts watch",
     "storybook": "start-storybook -p 6006",
@@ -26,16 +25,11 @@
       "pre-commit": "dts lint"
     }
   },
-  "prettier": {
-    "printWidth": 80,
-    "semi": true,
-    "singleQuote": true,
-    "trailingComma": "es5"
-  },
   "jest": {
     "testEnvironment": "jsdom"
   },
   "peerDependencies": {
+    "autonumeric": "^4.6.3",
     "react": ">=16"
   },
   "engines": {
@@ -50,5 +44,37 @@
       "path": "dist/react-autonumeric.esm.js",
       "limit": "10 KB"
     }
-  ]
+  ],
+  "devDependencies": {
+    "@babel/core": "^7.21.3",
+    "@size-limit/preset-small-lib": "^8.2.4",
+    "@tsconfig/create-react-app": "^1.0.3",
+    "@tsconfig/recommended": "^1.0.2",
+    "@types/node": "*",
+    "@types/react": "^18.0.28",
+    "@types/react-dom": "^18.0.11",
+    "autonumeric": "^4.6.3",
+    "babel-loader": "^9.1.2",
+    "dts-cli": "^1.6.3",
+    "eslint": ">=7.28.0",
+    "eslint-config-react-app": "^7.0.1",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-storybook": "^0.6.11",
+    "husky": "^8.0.3",
+    "prettier": ">=2.0.0",
+    "react": "^18.2.0",
+    "react-docgen-typescript-plugin": "^1.0.5",
+    "react-dom": "^18.2.0",
+    "react-is": "^18.2.0",
+    "regenerator-runtime": "*",
+    "require-from-string": "^2.0.2",
+    "size-limit": "^8.2.4",
+    "ts-jest": "^29.0.5",
+    "tslib": "^2.5.0",
+    "typescript": "^4.9.5",
+    "webpack": "4.46.0"
+  },
+  "dependencies": {
+    "jest": ">29.0.0"
+  }
 }
