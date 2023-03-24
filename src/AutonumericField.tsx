@@ -10,7 +10,7 @@ import AutoNumeric from "autonumeric";
 
 type AutonumericFieldProps = {
   value: number;
-  setValue: (value: number) => void;
+  onChange: (value: number) => void;
 } & Omit<
   DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>,
   "value" | "ref"
@@ -19,19 +19,23 @@ type AutonumericFieldProps = {
 const AutonumericField = forwardRef<
   HTMLInputElement | null,
   AutonumericFieldProps
->(function AutoFieldInput({ value, setValue, ...inputProps }, ref) {
+>(function AutoFieldInput({ value, onChange: setValue, ...inputProps }, ref) {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const autoNumeric = useRef<AutoNumeric | null>(null);
 
-  const onRemount = (newRef: HTMLInputElement) => {
+  const onRemount = (newRef: HTMLInputElement | null) => {
     inputRef.current = newRef;
     if (autoNumeric.current) {
       autoNumeric.current.remove();
-      autoNumeric.current.init(newRef);
+      if (newRef) {
+        autoNumeric.current.init(newRef);
+      }
     } else {
-      autoNumeric.current = new AutoNumeric(newRef, value, {
-        allowDecimalPadding: false,
-      });
+      if (newRef) {
+        autoNumeric.current = new AutoNumeric(newRef, value, {
+          allowDecimalPadding: false,
+        });
+      }
     }
   };
   useImperativeHandle<

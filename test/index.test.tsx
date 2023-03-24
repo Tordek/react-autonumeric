@@ -6,7 +6,7 @@ describe("AutonumericField", () => {
   it("renders without crashing", () => {
     const div = document.createElement("div");
     const root = ReactDOMClient.createRoot(div);
-    root.render(<AutonumericField value={0} setValue={() => null} />);
+    root.render(<AutonumericField value={0} onChange={() => null} />);
     root.unmount();
   });
 });
