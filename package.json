@@ -1,6 +1,6 @@
 {
   "name": "@tordek/react-autonumeric",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "license": "MIT",
   "author": "Guillermo O. «Tordek» Freschi",
   "main": "dist/index.js",
