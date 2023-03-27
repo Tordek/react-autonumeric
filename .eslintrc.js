@@ -6,7 +6,7 @@ module.exports = {
   },
   settings: {
     react: {
-      version: '18.0.0',
+      version: 'detect',
     },
   },
   extends: [
@@ -18,7 +18,6 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'plugin:@typescript-eslint/recommended-requiring-type-checking',
     'prettier',
-    'plugin:storybook/recommended',
   ],
   plugins: ['@typescript-eslint'],
   rules: {

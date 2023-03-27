@@ -5,59 +5,215 @@ import React, {
   useEffect,
   DetailedHTMLProps,
   InputHTMLAttributes,
+  useCallback,
 } from "react";
 import AutoNumeric from "autonumeric";
 
 type AutonumericFieldProps = {
-  value: number;
-  onChange: (value: number) => void;
+  value?: number;
+  onChange?: (value: number) => void;
+  onInputError?: (e: unknown) => void;
 } & Omit<
   DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>,
-  "value" | "ref"
->;
+  "value" | "ref" | "onChange" | "type"
+> &
+  Omit<AutoNumeric.Options, "readOnly">;
 
 const AutonumericField = forwardRef<
   HTMLInputElement | null,
   AutonumericFieldProps
->(function AutoFieldInput({ value, onChange: setValue, ...inputProps }, ref) {
+>(function AutoFieldInput(
+  {
+    value,
+    onChange,
+    onInputError,
+    inputMode = "decimal",
+
+    allowDecimalPadding,
+    caretPositionOnFocus,
+    createLocalList,
+    currencySymbol,
+    currencySymbolPlacement,
+    decimalCharacter,
+    decimalCharacterAlternative,
+    decimalPlaces,
+    decimalPlacesRawValue,
+    decimalPlacesShownOnBlur,
+    decimalPlacesShownOnFocus,
+    defaultValueOverride,
+    digitalGroupSpacing,
+    digitGroupSeparator,
+    divisorWhenUnfocused,
+    emptyInputBehavior,
+    failOnUnknownOption,
+    formatOnPageLoad,
+    historySize,
+    isCancellable,
+    leadingZero,
+    maximumValue,
+    minimumValue,
+    modifyValueOnWheel,
+    negativeBracketsTypeOnBlur,
+    negativePositiveSignPlacement,
+    noEventListeners,
+    onInvalidPaste,
+    outputFormat,
+    overrideMinMaxLimits,
+    rawValueDivisor,
+    readOnly,
+    roundingMethod,
+    saveValueToSessionStorage,
+    selectNumberOnly,
+    selectOnFocus,
+    serializeSpaces,
+    showOnlyNumbersOnFocus,
+    showPositiveSign,
+    showWarnings,
+    styleRules,
+    suffixText,
+    symbolWhenUnfocused,
+    unformatOnHover,
+    unformatOnSubmit,
+    wheelStep,
+    ...inputProps
+  },
+  ref
+) {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const autoNumeric = useRef<AutoNumeric | null>(null);
 
-  const onRemount = (newRef: HTMLInputElement | null) => {
-    inputRef.current = newRef;
-    if (autoNumeric.current) {
-      autoNumeric.current.remove();
-      if (newRef) {
-        autoNumeric.current.init(newRef);
-      }
-    } else {
-      if (newRef) {
-        autoNumeric.current = new AutoNumeric(newRef, value, {
-          allowDecimalPadding: false,
+  const onRemount = useCallback(
+    (newRef: HTMLInputElement | null) => {
+      inputRef.current = newRef;
+
+      autoNumeric.current?.remove();
+      if (newRef !== null) {
+        autoNumeric.current = new AutoNumeric(newRef, null, {
+          allowDecimalPadding,
+          caretPositionOnFocus,
+          createLocalList,
+          currencySymbol,
+          currencySymbolPlacement,
+          decimalCharacter,
+          decimalCharacterAlternative,
+          decimalPlaces,
+          decimalPlacesRawValue,
+          decimalPlacesShownOnBlur,
+          decimalPlacesShownOnFocus,
+          defaultValueOverride,
+          digitalGroupSpacing,
+          digitGroupSeparator,
+          divisorWhenUnfocused,
+          emptyInputBehavior,
+          failOnUnknownOption,
+          formatOnPageLoad,
+          historySize,
+          isCancellable,
+          leadingZero,
+          maximumValue,
+          minimumValue,
+          modifyValueOnWheel,
+          negativeBracketsTypeOnBlur,
+          negativePositiveSignPlacement,
+          noEventListeners,
+          onInvalidPaste,
+          outputFormat,
+          overrideMinMaxLimits,
+          rawValueDivisor,
+          readOnly,
+          roundingMethod,
+          saveValueToSessionStorage,
+          selectNumberOnly,
+          selectOnFocus,
+          serializeSpaces,
+          showOnlyNumbersOnFocus,
+          showPositiveSign,
+          showWarnings,
+          styleRules,
+          suffixText,
+          symbolWhenUnfocused,
+          unformatOnHover,
+          unformatOnSubmit,
+          wheelStep,
         });
       }
-    }
-  };
+    },
+    [
+      allowDecimalPadding,
+      caretPositionOnFocus,
+      createLocalList,
+      currencySymbol,
+      currencySymbolPlacement,
+      decimalCharacter,
+      decimalCharacterAlternative,
+      decimalPlaces,
+      decimalPlacesRawValue,
+      decimalPlacesShownOnBlur,
+      decimalPlacesShownOnFocus,
+      defaultValueOverride,
+      digitalGroupSpacing,
+      digitGroupSeparator,
+      divisorWhenUnfocused,
+      emptyInputBehavior,
+      failOnUnknownOption,
+      formatOnPageLoad,
+      historySize,
+      isCancellable,
+      leadingZero,
+      maximumValue,
+      minimumValue,
+      modifyValueOnWheel,
+      negativeBracketsTypeOnBlur,
+      negativePositiveSignPlacement,
+      noEventListeners,
+      onInvalidPaste,
+      outputFormat,
+      overrideMinMaxLimits,
+      rawValueDivisor,
+      readOnly,
+      roundingMethod,
+      saveValueToSessionStorage,
+      selectNumberOnly,
+      selectOnFocus,
+      serializeSpaces,
+      showOnlyNumbersOnFocus,
+      showPositiveSign,
+      showWarnings,
+      styleRules,
+      suffixText,
+      symbolWhenUnfocused,
+      unformatOnHover,
+      unformatOnSubmit,
+      wheelStep,
+    ]
+  );
+
   useImperativeHandle<
     HTMLInputElement | null,
-    HTMLInputElement | null
-  >(ref, () => inputRef.current, [inputRef]);
+    (HTMLInputElement & { autonumeric: AutoNumeric }) | null
+  >(ref, () => (inputRef.current && autoNumeric.current ? { ...inputRef.current, autonumeric: autoNumeric.current } : null), []);
+
   useEffect(() => {
     try {
-      autoNumeric.current?.set(value);
+      if (value !== undefined && autoNumeric.current?.getNumber() !== value) {
+        autoNumeric.current?.set(value);
+      }
     } catch (e) {
-      console.error(e);
+      onInputError?.(e);
     }
-  }, [value]);
+  }, [value, onInputError]);
 
   return (
     <input
       onChange={(e) => {
         const value = AutoNumeric.getAutoNumericElement(e.target).getNumber();
         if (value === null) return;
-        setValue(value);
+        onChange?.(value);
       }}
+      type="text"
+      inputMode={inputMode}
       ref={onRemount}
+      readOnly={readOnly}
       {...inputProps}
     />
   );
