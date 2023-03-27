@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import { AutonumericField } from "react-autonumeric";
+import { AutonumericField } from "@tordek/react-autonumeric";
 import "./index.css";
 
 const App = () => {
   const [value, setValue] = useState(1987.0308);
   return (
     <div>
-      <div className="bg-slate-900 grid grid-cols-2 gap-8 p-4">
-        <div className="bg-gradient-to-br from-violet-900 via-indigo-900 to-purple-800 rounded-lg p-8 text-slate-200 font-body flex flex-col gap-4 shadow-lg">
+      <div className="bg-slate-900 md:grid md:grid-cols-2 gap-8 p-4">
+        <div className="bg-gradient-to-br from-violet-900 via-indigo-900 to-purple-800 rounded-lg p-8 text-slate-200 font-body flex flex-col gap-4 shadow-lg mb-4 md:mb-0">
           <h2 className="font-header text-4xl mb-2 font-extrabold text-violet-50">
             My awesome <span className="rainbow">Autonumeric</span> input.
           </h2>
@@ -51,7 +51,7 @@ const App = () => {
           <p>You just put text in it, and try not to make mistakes.</p>
         </div>
       </div>
-      <div className="shadow-inner bg-gradient-to-br from-violet-900 via-indigo-900 to-purple-800 p-12 text-slate-200 font-body ">
+      <div className="shadow-inner bg-gradient-to-br from-violet-900 via-indigo-900 to-purple-800 p-4 md:p-12 text-slate-200 font-body ">
         <h1 className="font-header text-4xl text-violet-50 mb-2 font-extrabold">
           @tordek/react-autonumeric
         </h1>
@@ -63,11 +63,11 @@ const App = () => {
 
         <p>All you need is two extra libraries:</p>
 
-        <pre className="border-2 border-violet-800 shadow-inner shadow-yellow-900 bg-black/70 p-4 rounded-lg my-4">{`npm install @tordek/react-autonumeric autonumeric`}</pre>
+        <pre className="border-2 border-violet-800 shadow-inner shadow-yellow-900 bg-black/70 p-4 rounded-lg my-4 overflow-auto">{`npm install @tordek/react-autonumeric autonumeric`}</pre>
 
         <p>And then you can just start using it on your project:</p>
 
-        <pre className="border-2 border-violet-800 shadow-inner shadow-yellow-900 bg-black/70 p-4 rounded-lg my-4">
+        <pre className="border-2 border-violet-800 shadow-inner shadow-yellow-900 bg-black/70 p-4 rounded-lg my-4 overflow-auto">
           {`import { AutonumericField, AutonumericFieldProps } from "../AutonumericField";
 
 const App = () => {
