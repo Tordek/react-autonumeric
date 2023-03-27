@@ -3,7 +3,7 @@ import { AutonumericField } from "react-autonumeric";
 import "./index.css";
 
 const App = () => {
-  const [value, setValue] = useState(1987.83);
+  const [value, setValue] = useState(1987.0308);
   return (
     <div>
       <div className="bg-slate-900 grid grid-cols-2 gap-8 p-4">
