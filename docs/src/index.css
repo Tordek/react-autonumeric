@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css?family=Alkatra&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Poppins&display=swap');
+
+.rainbow {
+  font-weight: 00;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.7);
+  animation: rainbow-colors 6s linear infinite;
+  color: hsl(calc(360deg), 30%, 85%);
+}
+
+@keyframes rainbow-colors {
+  0% {
+    color: hsl(0turn, 60%, 88%);
+  }
+
+  25% {
+    color: hsl(.25turn, 60%, 88%);
+  }
+
+  60% {
+    color: hsl(.5turn, 60%, 88%);
+  }
+
+  75% {
+    color: hsl(.75turn, 60%, 88%);
+  }
+
+  100% {
+    color: hsl(1turn, 60%, 88%);
+  }
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
