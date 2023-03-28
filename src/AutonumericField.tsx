@@ -13,11 +13,12 @@ type AutonumericFieldProps = {
   value?: number;
   onChange?: (value: number) => void;
   onInputError?: (e: unknown) => void;
+  caretPositionOnFocus?: null | AutoNumeric.Options["caretPositionOnFocus"];
 } & Omit<
   DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>,
   "value" | "ref" | "onChange" | "type"
 > &
-  Omit<AutoNumeric.Options, "readOnly">;
+  Omit<AutoNumeric.Options, "readOnly" | "caretPositionOnFocus">;
 
 const AutonumericField = forwardRef<
   HTMLInputElement | null,
@@ -29,52 +30,50 @@ const AutonumericField = forwardRef<
     onInputError,
     inputMode = "decimal",
 
-    allowDecimalPadding,
-    caretPositionOnFocus,
-    createLocalList,
-    currencySymbol,
-    currencySymbolPlacement,
-    decimalCharacter,
-    decimalCharacterAlternative,
-    decimalPlaces,
-    decimalPlacesRawValue,
-    decimalPlacesShownOnBlur,
-    decimalPlacesShownOnFocus,
-    defaultValueOverride,
-    digitalGroupSpacing,
-    digitGroupSeparator,
-    divisorWhenUnfocused,
-    emptyInputBehavior,
-    failOnUnknownOption,
-    formatOnPageLoad,
-    historySize,
-    isCancellable,
-    leadingZero,
-    maximumValue,
-    minimumValue,
-    modifyValueOnWheel,
-    negativeBracketsTypeOnBlur,
-    negativePositiveSignPlacement,
-    noEventListeners,
-    onInvalidPaste,
-    outputFormat,
-    overrideMinMaxLimits,
-    rawValueDivisor,
+    allowDecimalPadding = true,
+    caretPositionOnFocus = null,
+    createLocalList = true,
+    currencySymbol = "",
+    currencySymbolPlacement = "p",
+    decimalCharacter = ".",
+    decimalCharacterAlternative = null,
+    decimalPlaces = 2,
+    decimalPlacesRawValue = decimalPlaces,
+    decimalPlacesShownOnBlur = decimalPlaces,
+    decimalPlacesShownOnFocus = decimalPlaces,
+    digitalGroupSpacing = "3",
+    digitGroupSeparator = ",",
+    divisorWhenUnfocused = null,
+    emptyInputBehavior = "focus",
+    failOnUnknownOption = false,
+    formatOnPageLoad = true,
+    historySize = 20,
+    isCancellable = true,
+    leadingZero = "deny",
+    maximumValue = "10000000000000",
+    minimumValue = "-10000000000000",
+    modifyValueOnWheel = true,
+    negativeBracketsTypeOnBlur = null,
+    negativePositiveSignPlacement = null,
+    onInvalidPaste = "error",
+    outputFormat = null,
+    overrideMinMaxLimits = null,
+    rawValueDivisor = null,
     readOnly,
-    roundingMethod,
-    saveValueToSessionStorage,
-    selectNumberOnly,
-    selectOnFocus,
-    serializeSpaces,
-    showOnlyNumbersOnFocus,
-    showPositiveSign,
-    showWarnings,
-    styleRules,
-    suffixText,
-    symbolWhenUnfocused,
-    unformatOnHover,
-    unformatOnSubmit,
-    wheelStep,
+    roundingMethod = "S",
+    saveValueToSessionStorage = false,
+    selectNumberOnly = false,
+    selectOnFocus = false,
+    serializeSpaces = "+",
+    showOnlyNumbersOnFocus = false,
+    showPositiveSign = false,
+    showWarnings = true,
+    styleRules = null,
+    suffixText = "",
+    symbolWhenUnfocused = null,
+    unformatOnHover = true,
+    unformatOnSubmit = false,
+    wheelStep = "progressive",
     ...inputProps
   },
   ref
@@ -82,127 +81,184 @@ const AutonumericField = forwardRef<
   const inputRef = useRef<HTMLInputElement | null>(null);
   const autoNumeric = useRef<AutoNumeric | null>(null);
 
-  const onRemount = useCallback(
-    (newRef: HTMLInputElement | null) => {
-      inputRef.current = newRef;
+  const onRemount = useCallback((newRef: HTMLInputElement | null) => {
+    inputRef.current = newRef;
 
-      autoNumeric.current?.remove();
-      if (newRef !== null) {
-        autoNumeric.current = new AutoNumeric(newRef, null, {
-          ...(allowDecimalPadding !== undefined && { allowDecimalPadding }),
-          ...(caretPositionOnFocus !== undefined && { caretPositionOnFocus }),
-          ...(createLocalList !== undefined && { createLocalList }),
-          ...(currencySymbol !== undefined && { currencySymbol }),
-          ...(currencySymbolPlacement !== undefined && {
-            currencySymbolPlacement,
-          }),
-          ...(decimalCharacter !== undefined && { decimalCharacter }),
-          ...(decimalCharacterAlternative !== undefined && {
-            decimalCharacterAlternative,
-          }),
-          ...(decimalPlaces !== undefined && { decimalPlaces }),
-          ...(decimalPlacesRawValue !== undefined && { decimalPlacesRawValue }),
-          ...(decimalPlacesShownOnBlur !== undefined && {
-            decimalPlacesShownOnBlur,
-          }),
-          ...(decimalPlacesShownOnFocus !== undefined && {
-            decimalPlacesShownOnFocus,
-          }),
-          ...(defaultValueOverride !== undefined && { defaultValueOverride }),
-          ...(digitalGroupSpacing !== undefined && { digitalGroupSpacing }),
-          ...(digitGroupSeparator !== undefined && { digitGroupSeparator }),
-          ...(divisorWhenUnfocused !== undefined && { divisorWhenUnfocused }),
-          ...(emptyInputBehavior !== undefined && { emptyInputBehavior }),
-          ...(failOnUnknownOption !== undefined && { failOnUnknownOption }),
-          ...(formatOnPageLoad !== undefined && { formatOnPageLoad }),
-          ...(historySize !== undefined && { historySize }),
-          ...(isCancellable !== undefined && { isCancellable }),
-          ...(leadingZero !== undefined && { leadingZero }),
-          ...(maximumValue !== undefined && { maximumValue }),
-          ...(minimumValue !== undefined && { minimumValue }),
-          ...(modifyValueOnWheel !== undefined && { modifyValueOnWheel }),
-          ...(negativeBracketsTypeOnBlur !== undefined && {
-            negativeBracketsTypeOnBlur,
-          }),
-          ...(negativePositiveSignPlacement !== undefined && {
-            negativePositiveSignPlacement,
-          }),
-          ...(noEventListeners !== undefined && { noEventListeners }),
-          ...(onInvalidPaste !== undefined && { onInvalidPaste }),
-          ...(outputFormat !== undefined && { outputFormat }),
-          ...(overrideMinMaxLimits !== undefined && { overrideMinMaxLimits }),
-          ...(rawValueDivisor !== undefined && { rawValueDivisor }),
-          ...(readOnly !== undefined && { readOnly }),
-          ...(roundingMethod !== undefined && { roundingMethod }),
-          ...(saveValueToSessionStorage !== undefined && {
-            saveValueToSessionStorage,
-          }),
-          ...(selectNumberOnly !== undefined && { selectNumberOnly }),
-          ...(selectOnFocus !== undefined && { selectOnFocus }),
-          ...(serializeSpaces !== undefined && { serializeSpaces }),
-          ...(showOnlyNumbersOnFocus !== undefined && {
-            showOnlyNumbersOnFocus,
-          }),
-          ...(showPositiveSign !== undefined && { showPositiveSign }),
-          ...(showWarnings !== undefined && { showWarnings }),
-          ...(styleRules !== undefined && { styleRules }),
-          ...(suffixText !== undefined && { suffixText }),
-          ...(symbolWhenUnfocused !== undefined && { symbolWhenUnfocused }),
-          ...(unformatOnHover !== undefined && { unformatOnHover }),
-          ...(unformatOnSubmit !== undefined && { unformatOnSubmit }),
-          ...(wheelStep !== undefined && { wheelStep }),
-        });
-      }
-    },
-    [
-      allowDecimalPadding,
+    autoNumeric.current?.remove();
+    if (newRef !== null) {
+      autoNumeric.current = new AutoNumeric(newRef, null);
+    }
+  }, []);
+
+  useEffect(() => {
+    autoNumeric.current?.update({ currencySymbol });
+  }, [currencySymbol]);
+
+  useEffect(() => {
+    autoNumeric.current?.update({ allowDecimalPadding });
+  }, [allowDecimalPadding]);
+
+  useEffect(() => {
+    autoNumeric.current?.update({
       caretPositionOnFocus,
-      createLocalList,
-      currencySymbol,
-      currencySymbolPlacement,
-      decimalCharacter,
-      decimalCharacterAlternative,
-      decimalPlaces,
-      decimalPlacesRawValue,
-      decimalPlacesShownOnBlur,
-      decimalPlacesShownOnFocus,
-      defaultValueOverride,
-      digitalGroupSpacing,
-      digitGroupSeparator,
-      divisorWhenUnfocused,
-      emptyInputBehavior,
-      failOnUnknownOption,
-      formatOnPageLoad,
-      historySize,
-      isCancellable,
-      leadingZero,
-      maximumValue,
-      minimumValue,
-      modifyValueOnWheel,
-      negativeBracketsTypeOnBlur,
-      negativePositiveSignPlacement,
-      noEventListeners,
-      onInvalidPaste,
-      outputFormat,
-      overrideMinMaxLimits,
-      rawValueDivisor,
-      readOnly,
-      roundingMethod,
-      saveValueToSessionStorage,
-      selectNumberOnly,
-      selectOnFocus,
-      serializeSpaces,
-      showOnlyNumbersOnFocus,
-      showPositiveSign,
-      showWarnings,
-      styleRules,
-      suffixText,
-      symbolWhenUnfocused,
-      unformatOnHover,
-      unformatOnSubmit,
-      wheelStep,
-    ]
-  );
+    } as AutoNumeric.Options); // This is marked as non-null, but accepts null.
+  }, [caretPositionOnFocus]);
+
+  useEffect(() => {
+    autoNumeric.current?.update({ createLocalList });
+  }, [createLocalList]);
+
+  useEffect(() => {
+    autoNumeric.current?.update({ currencySymbolPlacement });
+  }, [currencySymbolPlacement]);
+
+  useEffect(() => {
+    autoNumeric.current?.update({ decimalCharacter, digitGroupSeparator });
+  }, [decimalCharacter, digitGroupSeparator]);
+
+  useEffect(() => {
+    autoNumeric.current?.update({ decimalCharacterAlternative });
+  }, [decimalCharacterAlternative]);
+
+  useEffect(() => {
+    autoNumeric.current?.update({ decimalPlaces });
+  }, [decimalPlaces]);
+
+  useEffect(() => {
+    autoNumeric.current?.update({ decimalPlacesRawValue });
+  }, [decimalPlacesRawValue]);
+
+  useEffect(() => {
+    autoNumeric.current?.update({ decimalPlacesShownOnBlur });
+  }, [decimalPlacesShownOnBlur]);
+
+  useEffect(() => {
+    autoNumeric.current?.update({ decimalPlacesShownOnFocus });
+  }, [decimalPlacesShownOnFocus]);
+
+  useEffect(() => {
+    autoNumeric.current?.update({ digitalGroupSpacing });
+  }, [digitalGroupSpacing]);
+
+  useEffect(() => {
+    autoNumeric.current?.update({ divisorWhenUnfocused });
+  }, [divisorWhenUnfocused]);
+
+  useEffect(() => {
+    autoNumeric.current?.update({ emptyInputBehavior });
+  }, [emptyInputBehavior]);
+
+  useEffect(() => {
+    autoNumeric.current?.update({ failOnUnknownOption });
+  }, [failOnUnknownOption]);
+
+  useEffect(() => {
+    autoNumeric.current?.update({ formatOnPageLoad });
+  }, [formatOnPageLoad]);
+
+  useEffect(() => {
+    autoNumeric.current?.update({ historySize });
+  }, [historySize]);
+
+  useEffect(() => {
+    autoNumeric.current?.update({ isCancellable });
+  }, [isCancellable]);
+
+  useEffect(() => {
+    autoNumeric.current?.update({ leadingZero });
+  }, [leadingZero]);
+
+  useEffect(() => {
+    autoNumeric.current?.update({ maximumValue });
+  }, [maximumValue]);
+
+  useEffect(() => {
+    autoNumeric.current?.update({ minimumValue });
+  }, [minimumValue]);
+
+  useEffect(() => {
+    autoNumeric.current?.update({ modifyValueOnWheel });
+  }, [modifyValueOnWheel]);
+
+  useEffect(() => {
+    autoNumeric.current?.update({ negativeBracketsTypeOnBlur });
+  }, [negativeBracketsTypeOnBlur]);
+
+  useEffect(() => {
+    autoNumeric.current?.update({ negativePositiveSignPlacement });
+  }, [negativePositiveSignPlacement]);
+
+  useEffect(() => {
+    autoNumeric.current?.update({ onInvalidPaste });
+  }, [onInvalidPaste]);
+
+  useEffect(() => {
+    autoNumeric.current?.update({ outputFormat });
+  }, [outputFormat]);
+
+  useEffect(() => {
+    autoNumeric.current?.update({ overrideMinMaxLimits });
+  }, [overrideMinMaxLimits]);
+
+  useEffect(() => {
+    autoNumeric.current?.update({ rawValueDivisor });
+  }, [rawValueDivisor]);
+
+  useEffect(() => {
+    autoNumeric.current?.update({ roundingMethod });
+  }, [roundingMethod]);
+
+  useEffect(() => {
+    autoNumeric.current?.update({ saveValueToSessionStorage });
+  }, [saveValueToSessionStorage]);
+
+  useEffect(() => {
+    autoNumeric.current?.update({ selectNumberOnly });
+  }, [selectNumberOnly]);
+
+  useEffect(() => {
+    autoNumeric.current?.update({ selectOnFocus });
+  }, [selectOnFocus]);
+
+  useEffect(() => {
+    autoNumeric.current?.update({ serializeSpaces });
+  }, [serializeSpaces]);
+
+  useEffect(() => {
+    autoNumeric.current?.update({ showOnlyNumbersOnFocus });
+  }, [showOnlyNumbersOnFocus]);
+
+  useEffect(() => {
+    autoNumeric.current?.update({ showPositiveSign });
+  }, [showPositiveSign]);
+
+  useEffect(() => {
+    autoNumeric.current?.update({ showWarnings });
+  }, [showWarnings]);
+
+  useEffect(() => {
+    autoNumeric.current?.update({ styleRules });
+  }, [styleRules]);
+
+  useEffect(() => {
+    autoNumeric.current?.update({ suffixText });
+  }, [suffixText]);
+
+  useEffect(() => {
+    autoNumeric.current?.update({ symbolWhenUnfocused });
+  }, [symbolWhenUnfocused]);
+
+  useEffect(() => {
+    autoNumeric.current?.update({ unformatOnHover });
+  }, [unformatOnHover]);
+
+  useEffect(() => {
+    autoNumeric.current?.update({ unformatOnSubmit });
+  }, [unformatOnSubmit]);
+
+  useEffect(() => {
+    autoNumeric.current?.update({ wheelStep });
+  }, [wheelStep]);
 
   useImperativeHandle<
     HTMLInputElement | null,
