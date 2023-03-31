@@ -91,174 +91,54 @@ const AutonumericField = forwardRef<
   }, []);
 
   useEffect(() => {
-    autoNumeric.current?.update({ currencySymbol });
-  }, [currencySymbol]);
-
-  useEffect(() => {
-    autoNumeric.current?.update({ allowDecimalPadding });
-  }, [allowDecimalPadding]);
-
-  useEffect(() => {
     autoNumeric.current?.update({
-      caretPositionOnFocus,
-    } as AutoNumeric.Options); // This is marked as non-null, but accepts null.
-  }, [caretPositionOnFocus]);
-
-  useEffect(() => {
-    autoNumeric.current?.update({ createLocalList });
-  }, [createLocalList]);
-
-  useEffect(() => {
-    autoNumeric.current?.update({ currencySymbolPlacement });
-  }, [currencySymbolPlacement]);
-
-  useEffect(() => {
-    autoNumeric.current?.update({ decimalCharacter, digitGroupSeparator });
-  }, [decimalCharacter, digitGroupSeparator]);
-
-  useEffect(() => {
-    autoNumeric.current?.update({ decimalCharacterAlternative });
-  }, [decimalCharacterAlternative]);
-
-  useEffect(() => {
-    autoNumeric.current?.update({ decimalPlaces });
-  }, [decimalPlaces]);
-
-  useEffect(() => {
-    autoNumeric.current?.update({ decimalPlacesRawValue });
-  }, [decimalPlacesRawValue]);
-
-  useEffect(() => {
-    autoNumeric.current?.update({ decimalPlacesShownOnBlur });
-  }, [decimalPlacesShownOnBlur]);
-
-  useEffect(() => {
-    autoNumeric.current?.update({ decimalPlacesShownOnFocus });
-  }, [decimalPlacesShownOnFocus]);
-
-  useEffect(() => {
-    autoNumeric.current?.update({ digitalGroupSpacing });
-  }, [digitalGroupSpacing]);
-
-  useEffect(() => {
-    autoNumeric.current?.update({ divisorWhenUnfocused });
-  }, [divisorWhenUnfocused]);
-
-  useEffect(() => {
-    autoNumeric.current?.update({ emptyInputBehavior });
-  }, [emptyInputBehavior]);
-
-  useEffect(() => {
-    autoNumeric.current?.update({ failOnUnknownOption });
-  }, [failOnUnknownOption]);
-
-  useEffect(() => {
-    autoNumeric.current?.update({ formatOnPageLoad });
-  }, [formatOnPageLoad]);
-
-  useEffect(() => {
-    autoNumeric.current?.update({ historySize });
-  }, [historySize]);
-
-  useEffect(() => {
-    autoNumeric.current?.update({ isCancellable });
-  }, [isCancellable]);
-
-  useEffect(() => {
-    autoNumeric.current?.update({ leadingZero });
-  }, [leadingZero]);
-
-  useEffect(() => {
-    autoNumeric.current?.update({ maximumValue });
-  }, [maximumValue]);
-
-  useEffect(() => {
-    autoNumeric.current?.update({ minimumValue });
-  }, [minimumValue]);
-
-  useEffect(() => {
-    autoNumeric.current?.update({ modifyValueOnWheel });
-  }, [modifyValueOnWheel]);
-
-  useEffect(() => {
-    autoNumeric.current?.update({ negativeBracketsTypeOnBlur });
-  }, [negativeBracketsTypeOnBlur]);
-
-  useEffect(() => {
-    autoNumeric.current?.update({ negativePositiveSignPlacement });
-  }, [negativePositiveSignPlacement]);
-
-  useEffect(() => {
-    autoNumeric.current?.update({ onInvalidPaste });
-  }, [onInvalidPaste]);
-
-  useEffect(() => {
-    autoNumeric.current?.update({ outputFormat });
-  }, [outputFormat]);
-
-  useEffect(() => {
-    autoNumeric.current?.update({ overrideMinMaxLimits });
-  }, [overrideMinMaxLimits]);
-
-  useEffect(() => {
-    autoNumeric.current?.update({ rawValueDivisor });
-  }, [rawValueDivisor]);
-
-  useEffect(() => {
-    autoNumeric.current?.update({ roundingMethod });
-  }, [roundingMethod]);
-
-  useEffect(() => {
-    autoNumeric.current?.update({ saveValueToSessionStorage });
-  }, [saveValueToSessionStorage]);
-
-  useEffect(() => {
-    autoNumeric.current?.update({ selectNumberOnly });
-  }, [selectNumberOnly]);
-
-  useEffect(() => {
-    autoNumeric.current?.update({ selectOnFocus });
-  }, [selectOnFocus]);
-
-  useEffect(() => {
-    autoNumeric.current?.update({ serializeSpaces });
-  }, [serializeSpaces]);
-
-  useEffect(() => {
-    autoNumeric.current?.update({ showOnlyNumbersOnFocus });
-  }, [showOnlyNumbersOnFocus]);
-
-  useEffect(() => {
-    autoNumeric.current?.update({ showPositiveSign });
-  }, [showPositiveSign]);
-
-  useEffect(() => {
-    autoNumeric.current?.update({ showWarnings });
-  }, [showWarnings]);
-
-  useEffect(() => {
-    autoNumeric.current?.update({ styleRules });
-  }, [styleRules]);
-
-  useEffect(() => {
-    autoNumeric.current?.update({ suffixText });
-  }, [suffixText]);
-
-  useEffect(() => {
-    autoNumeric.current?.update({ symbolWhenUnfocused });
-  }, [symbolWhenUnfocused]);
-
-  useEffect(() => {
-    autoNumeric.current?.update({ unformatOnHover });
-  }, [unformatOnHover]);
-
-  useEffect(() => {
-    autoNumeric.current?.update({ unformatOnSubmit });
-  }, [unformatOnSubmit]);
-
-  useEffect(() => {
-    autoNumeric.current?.update({ wheelStep });
-  }, [wheelStep]);
+      allowDecimalPadding,
+      caretPositionOnFocus:
+        caretPositionOnFocus as AutoNumeric.Options["caretPositionOnFocus"], // This is marked as non-null, but accepts null.
+      createLocalList,
+      currencySymbol,
+      currencySymbolPlacement,
+      decimalCharacter,
+      decimalCharacterAlternative,
+      decimalPlaces,
+      decimalPlacesRawValue,
+      decimalPlacesShownOnBlur,
+      decimalPlacesShownOnFocus,
+      digitalGroupSpacing,
+      digitGroupSeparator,
+      divisorWhenUnfocused,
+      emptyInputBehavior,
+      failOnUnknownOption,
+      formatOnPageLoad,
+      historySize,
+      isCancellable,
+      leadingZero,
+      maximumValue,
+      minimumValue,
+      modifyValueOnWheel,
+      negativeBracketsTypeOnBlur,
+      negativePositiveSignPlacement,
+      onInvalidPaste,
+      outputFormat,
+      overrideMinMaxLimits,
+      rawValueDivisor,
+      readOnly,
+      roundingMethod,
+      saveValueToSessionStorage,
+      selectNumberOnly,
+      selectOnFocus,
+      serializeSpaces,
+      showOnlyNumbersOnFocus,
+      showPositiveSign,
+      showWarnings,
+      styleRules,
+      suffixText,
+      symbolWhenUnfocused,
+      unformatOnHover,
+      unformatOnSubmit,
+      wheelStep,
+    });
+  }, [allowDecimalPadding, caretPositionOnFocus, createLocalList, currencySymbol, currencySymbolPlacement, decimalCharacter, decimalCharacterAlternative, decimalPlaces, decimalPlacesRawValue, decimalPlacesShownOnBlur, decimalPlacesShownOnFocus, digitalGroupSpacing, digitGroupSeparator, divisorWhenUnfocused, emptyInputBehavior, failOnUnknownOption, formatOnPageLoad, historySize, isCancellable, leadingZero, maximumValue, minimumValue, modifyValueOnWheel, negativeBracketsTypeOnBlur, negativePositiveSignPlacement, onInvalidPaste, outputFormat, overrideMinMaxLimits, rawValueDivisor, readOnly, roundingMethod, saveValueToSessionStorage, selectNumberOnly, selectOnFocus, serializeSpaces, showOnlyNumbersOnFocus, showPositiveSign, showWarnings, styleRules, suffixText, symbolWhenUnfocused, unformatOnHover, unformatOnSubmit, wheelStep]);
 
   useImperativeHandle<
     HTMLInputElement | null,
