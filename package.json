@@ -6,10 +6,7 @@
   "main": "dist/index.js",
   "module": "dist/react-autonumeric.esm.js",
   "typings": "dist/index.d.ts",
-  "files": [
-    "dist",
-    "src"
-  ],
+  "files": ["dist/"],
   "scripts": {
     "analyze": "size-limit --why",
     "build": "dts build",
