@@ -59,7 +59,7 @@ const AutonumericField = forwardRef<
     outputFormat = null,
     overrideMinMaxLimits = null,
     rawValueDivisor = null,
-    readOnly,
+    readOnly = false,
     roundingMethod = "S",
     saveValueToSessionStorage = false,
     selectNumberOnly = false,
