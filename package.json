@@ -1,12 +1,14 @@
 {
   "name": "@tordek/react-autonumeric",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "license": "MIT",
   "author": "Guillermo O. «Tordek» Freschi",
   "main": "dist/index.js",
   "module": "dist/react-autonumeric.esm.js",
   "typings": "dist/index.d.ts",
-  "files": ["dist/"],
+  "files": [
+    "dist/"
+  ],
   "scripts": {
     "analyze": "size-limit --why",
     "build": "dts build",
