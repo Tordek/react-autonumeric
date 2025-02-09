@@ -1,4 +1,4 @@
-import React, { useReducer, useState } from "react";
+import { useReducer, useState } from "react";
 import { AutonumericField } from "@tordek/react-autonumeric";
 import "./index.css";
 import AutoNumeric from "autonumeric";
@@ -48,7 +48,7 @@ const App = () => {
             </div>
             <div>
               <AutonumericField
-                className="p-2 rounded-lg border-2 border-purple-900 shadow-sm w-full text-right text-slate-900"
+                className="p-2 rounded-lg border-2 border-purple-900 shadow-xs w-full text-right text-slate-900 bg-slate-100"
                 id="goodInput"
                 value={value}
                 onChange={setValue}
@@ -131,7 +131,7 @@ const App = () => {
           </div>
           <div>
             <AutonumericField
-              className="p-2 rounded-lg border-2 border-purple-900 shadow-sm w-full text-right text-slate-900"
+              className="p-2 rounded-lg border-2 border-purple-900 shadow-xs w-full text-right text-slate-900"
               id="goodInput"
               value={value}
               onChange={setValue}
@@ -265,7 +265,7 @@ const App = () => {
                     settings.decimalCharacter === "," &&
                     settings.digitGroupSeparator === "."
                   }
-                  onChange={(e) => {
+                  onChange={() => {
                     changeSettings(["decimalCharacter", ","]);
                     changeSettings(["digitGroupSeparator", "."]);
                   }}
@@ -280,7 +280,7 @@ const App = () => {
                     settings.decimalCharacter === "." &&
                     settings.digitGroupSeparator === ","
                   }
-                  onChange={(e) => {
+                  onChange={() => {
                     changeSettings(["decimalCharacter", "."]);
                     changeSettings(["digitGroupSeparator", ","]);
                   }}
@@ -295,7 +295,7 @@ const App = () => {
                     settings.decimalCharacter === "." &&
                     settings.digitGroupSeparator === " "
                   }
-                  onChange={(e) => {
+                  onChange={() => {
                     changeSettings(["decimalCharacter", "."]);
                     changeSettings(["digitGroupSeparator", " "]);
                   }}
